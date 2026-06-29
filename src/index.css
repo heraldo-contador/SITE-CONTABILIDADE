@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #112d54;
+  --color-primary-dark: #0a1c35;
+  --color-primary-light: #1b4278;
+  --color-accent: #ba9159;
+  --color-accent-dark: #a07a46;
+  --color-accent-light: #cfab75;
+  --color-bg-light: #f8f9fa;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+}
+
+/* Custom scrollbar to keep layout elegant */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8f9fa;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ba9159;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a07a46;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Sleek Interface Helper Classes */
+.shadow-sleek {
+  box-shadow: 0 10px 30px -10px rgba(17, 45, 84, 0.08), 0 1px 3px rgba(186, 145, 89, 0.05);
+}
+
+.shadow-sleek-hover:hover {
+  box-shadow: 0 20px 40px -15px rgba(17, 45, 84, 0.12), 0 1px 5px rgba(186, 145, 89, 0.1);
+}
+
+.gold-border-gradient {
+  position: relative;
+}
+
+.gold-border-gradient::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ba9159, transparent);
+}
+
+/* Base style enhancements */
+body {
+  background-color: #f8f9fa;
+  color: #112d54;
+  font-family: var(--font-sans);
+}

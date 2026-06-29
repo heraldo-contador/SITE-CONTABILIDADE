@@ -1,0 +1,6 @@
+{
+  "name": "Heraldo Contabilidade",
+  "description": "Plataforma profissional da Heraldo Contabilidade, apresentando soluções de contabilidade consultiva, BPO financeiro, simuladores tributários e trabalhistas interativos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

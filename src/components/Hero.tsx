@@ -80,7 +80,7 @@ export default function Hero() {
               </div>
               <div className="flex items-center gap-2.5">
                 <CheckCircle2 className="w-5 h-5 text-accent flex-shrink-0" />
-                <span className="text-bg-light/90 font-medium">Abertura rápida e sem burocracia</span>
+                <span className="text-bg-light/90 font-medium">Abertura de empresa rápida e sem burocracia</span>
               </div>
             </motion.div>
 

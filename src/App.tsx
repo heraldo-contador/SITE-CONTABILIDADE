@@ -86,7 +86,7 @@ export default function App() {
     const mockServices = [
       'Contabilidade Consultiva',
       'Gestão Fiscal & Planejamento Tributário',
-      'Abertura, Alteração & Regularização',
+      'Abertura, Alteração e Regularização de Empresa',
       'BPO Financeiro (Terceirização)',
     ];
     const mockRevenues = ['10k-50k', '50k-100k', 'above-100k', 'below-10k'];

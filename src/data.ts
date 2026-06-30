@@ -59,7 +59,7 @@ export const SERVICES: Service[] = [
   },
   {
     id: 'societario',
-    title: 'Abertura, Alteração & Regularização',
+    title: 'Abertura, Alteração e Regularização de Empresa',
     category: 'societario',
     description: 'Abra sua empresa de forma rápida, segura e com a melhor estrutura societária para proteção patrimonial e eficiência fiscal.',
     longDescription: 'Facilitamos todo o processo burocrático de abertura, alteração de contratos ou encerramento de empresas. Analisamos a melhor natureza jurídica (LTDA, SLU, S/A) e as atividades (CNAEs) ideais para garantir que você não pague impostos desnecessários desde a concepção do negócio. Também atuamos na blindagem e acordos de sócios.',

@@ -19,16 +19,23 @@ jobs:
           cache: 'npm'
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm ci || npm install
 
       - name: Build Project
         run: npm run build
 
+      - name: Sanitize FTP Server Host
+        id: sanitize
+        run: |
+          # Remove ftp://, ftps://, spaces, and trailing slashes from the server host
+          CLEAN_HOST=$(echo "${{ secrets.FTP_SERVER }}" | sed -e 's|^ftp://||i' -e 's|^ftps://||i' -e 's|/$||' -e 's|^[[:space:]]*||' -e 's|[[:space:]]*$||')
+          echo "host=$CLEAN_HOST" >> $GITHUB_OUTPUT
+
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          server: ${{ steps.sanitize.outputs.host }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: /public_html/
+          server-dir: public_html/

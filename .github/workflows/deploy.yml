@@ -1,0 +1,36 @@
+code
+Yaml
+name: Deploy do Site para Hostinger
+
+on:
+  push:
+    branches:
+      - main # ou master, dependendo do nome da sua branch principal
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar Código do Repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-node: 20
+
+      - name: Instalar Dependências
+        run: npm ci
+
+      - name: Compilar Aplicação (Vite)
+        run: npm run build
+
+      - name: Enviar via FTP para Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/ # Envia apenas a pasta compilada
+          server-dir: /public_html/ # Altere se o site estiver em um subdiretório

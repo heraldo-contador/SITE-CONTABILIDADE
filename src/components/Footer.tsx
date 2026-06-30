@@ -78,7 +78,7 @@ export default function Footer() {
             <div className="flex items-start gap-3 bg-white/5 border border-white/10 p-3.5 rounded-xl text-xs text-bg-light/80">
               <Shield className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
               <p className="leading-relaxed">
-                Escritório contábil em conformidade integral com o Conselho Federal de Contabilidade (CFC) sob o registro RJ-002871/O.
+                Escritório contábil em conformidade integral com o Conselho Federal de Contabilidade (CFC) sob o registro SP-050308/O-4.
               </p>
             </div>
             <div className="flex gap-4 text-xs text-bg-light/50">

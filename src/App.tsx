@@ -7,11 +7,13 @@ import Blog from './components/Blog';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import SubmissionInbox from './components/SubmissionInbox';
+import TermsOfUse from './components/TermsOfUse';
 import { ContactSubmission } from './types';
 
 export default function App() {
   const [submissions, setSubmissions] = useState<ContactSubmission[]>([]);
   const [isInboxOpen, setIsInboxOpen] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
   const [prefilledService, setPrefilledService] = useState('');
   const [prefilledNotes, setPrefilledNotes] = useState('');
 
@@ -85,7 +87,7 @@ export default function App() {
     const mockCompanies = ['Metalúrgica Metalburg', 'Focus Live Eventos', 'Clínica Vita', 'Boutique Fashion E-com'];
     const mockServices = [
       'Contabilidade Consultiva',
-      'Gestão Fiscal & Planejamento Tributário',
+      'Gestão Fiscal e Planejamento Tributário',
       'Abertura, Alteração e Regularização de Empresa',
       'BPO Financeiro (Terceirização)',
     ];
@@ -134,27 +136,36 @@ export default function App() {
       {/* Navigation and Top Header */}
       <Header onOpenInbox={() => setIsInboxOpen(true)} unreadCount={unreadCount} />
 
-      {/* Main Sections */}
-      <main className="flex-grow">
-        {/* Hero Section */}
-        <Hero />
+      {/* Main Sections or Terms */}
+      {showTerms ? (
+        <main className="flex-grow">
+          <TermsOfUse onBack={() => {
+            setShowTerms(false);
+            window.scrollTo(0, 0);
+          }} />
+        </main>
+      ) : (
+        <main className="flex-grow">
+          {/* Hero Section */}
+          <Hero />
 
-        {/* Services Showcase & Details Modal */}
-        <Services onSelectService={handleSelectService} />
+          {/* Services Showcase & Details Modal */}
+          <Services onSelectService={handleSelectService} />
 
-        {/* Interactive Tax/CLT Simulators */}
-        <Calculators onApplySimulation={handleApplySimulation} />
+          {/* Interactive Tax/CLT Simulators */}
+          <Calculators onApplySimulation={handleApplySimulation} />
 
-        {/* Blog and Knowledge Center */}
-        <Blog />
+          {/* Blog and Knowledge Center */}
+          <Blog />
 
-        {/* Contact Form & Real-time Qualification */}
-        <ContactForm
-          prefilledService={prefilledService}
-          prefilledNotes={prefilledNotes}
-          onSubmit={handleSubmitSubmission}
-        />
-      </main>
+          {/* Contact Form & Real-time Qualification */}
+          <ContactForm
+            prefilledService={prefilledService}
+            prefilledNotes={prefilledNotes}
+            onSubmit={handleSubmitSubmission}
+          />
+        </main>
+      )}
 
       {/* Administrative Submissions Viewer (Slide-over Drawer) */}
       <SubmissionInbox
@@ -167,7 +178,10 @@ export default function App() {
       />
 
       {/* Footer Section with CFC standard details */}
-      <Footer />
+      <Footer onTermsClick={() => {
+        setShowTerms(true);
+        window.scrollTo(0, 0);
+      }} />
     </div>
   );
 }

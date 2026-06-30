@@ -1,7 +1,11 @@
 import React from 'react';
 import { Landmark, Mail, Phone, MapPin, ExternalLink, Shield } from 'lucide-react';
 
-export default function Footer() {
+interface FooterProps {
+  onTermsClick?: () => void;
+}
+
+export default function Footer({ onTermsClick }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -96,7 +100,18 @@ export default function Footer() {
             © {currentYear} Heraldo Contabilidade S/S. Todos os direitos reservados.
           </span>
           <div className="flex gap-4">
-            <a href="#" className="hover:underline hover:text-white">Termos de Uso</a>
+            <a 
+              href="#" 
+              onClick={(e) => {
+                if (onTermsClick) {
+                  e.preventDefault();
+                  onTermsClick();
+                }
+              }}
+              className="hover:underline hover:text-white"
+            >
+              Termos de Uso
+            </a>
             <span>•</span>
             <a href="#" className="hover:underline hover:text-white">Políticas de Privacidade</a>
           </div>

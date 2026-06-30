@@ -17,7 +17,7 @@ export const SERVICES: Service[] = [
   },
   {
     id: 'fiscal',
-    title: 'Gestão Fiscal & Planejamento Tributário',
+    title: 'Gestão Fiscal e Planejamento Tributário',
     category: 'fiscal',
     description: 'Reduza legalmente sua carga tributária com planejamento minucioso e revisão fiscal contínua da sua operação.',
     longDescription: 'O Brasil possui uma das legislações fiscais mais complexas do mundo. Nós monitoramos diariamente as mudanças na lei para enquadrar sua empresa no regime tributário ideal (Simples Nacional, Lucro Presumido ou Lucro Real). Realizamos revisões retroativas em busca de créditos fiscais acumulados que podem ser devolvidos para o seu caixa.',

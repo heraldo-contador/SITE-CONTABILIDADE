@@ -31,7 +31,7 @@ export const SERVICES: Service[] = [
   },
   {
     id: 'dp',
-    title: 'Departamento Pessoal & eSocial',
+    title: 'Departamento Pessoal e eSocial',
     category: 'dp',
     description: 'Segurança jurídica absoluta para sua empresa, com processamento ágil de folha de pagamento e conformidade trabalhista.',
     longDescription: 'Evite passivos trabalhistas com uma gestão rigorosa do Departamento Pessoal. Nós cuidamos de todo o ciclo de vida do funcionário na sua empresa: admissão, férias, rescisões, benefícios e folha de pagamento. Tudo estruturado em perfeita harmonia com as regras do eSocial e as convenções coletivas de cada sindicato.',

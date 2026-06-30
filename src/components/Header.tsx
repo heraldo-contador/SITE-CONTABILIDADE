@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Landmark, Mail, Phone, Menu, X, Database, Clock } from 'lucide-react';
+import { Landmark, Mail, Phone, Menu, X, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-interface HeaderProps {
-  onOpenInbox: () => void;
-  unreadCount: number;
-}
-
-export default function Header({ onOpenInbox, unreadCount }: HeaderProps) {
+export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -91,21 +86,6 @@ export default function Header({ onOpenInbox, unreadCount }: HeaderProps) {
 
           {/* Actions */}
           <div className="hidden md:flex items-center gap-4">
-            {/* View Submissions Demo Trigger */}
-            <button
-              onClick={onOpenInbox}
-              className="relative flex items-center gap-2 text-xs bg-primary-light hover:bg-primary-light/80 text-white font-medium py-2 px-3 rounded-lg transition-all border border-accent/20 cursor-pointer"
-              title="Ver caixa de mensagens recebidas"
-            >
-              <Database className="w-3.5 h-3.5 text-accent" />
-              <span>Painel de Leads</span>
-              {unreadCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-bold w-5 h-5 rounded-full flex items-center justify-center animate-pulse">
-                  {unreadCount}
-                </span>
-              )}
-            </button>
-
             <a
               href="#contato"
               className="bg-accent hover:bg-accent-dark text-primary font-sans font-semibold text-sm py-2 px-5 rounded-lg transition-all shadow-md hover:shadow-accent/25 duration-200"
@@ -116,18 +96,6 @@ export default function Header({ onOpenInbox, unreadCount }: HeaderProps) {
 
           {/* Mobile Buttons */}
           <div className="flex md:hidden items-center gap-3">
-            <button
-              onClick={onOpenInbox}
-              className="relative p-2 bg-primary-light rounded-lg border border-accent/20 text-white"
-              title="Leads"
-            >
-              <Database className="w-4 h-4 text-accent" />
-              {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[8px] font-bold w-4.5 h-4.5 rounded-full flex items-center justify-center">
-                  {unreadCount}
-                </span>
-              )}
-            </button>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 text-bg-light hover:text-accent transition-colors focus:outline-none"
@@ -160,16 +128,6 @@ export default function Header({ onOpenInbox, unreadCount }: HeaderProps) {
                 </a>
               ))}
               <div className="pt-4 flex flex-col gap-3">
-                <button
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    onOpenInbox();
-                  }}
-                  className="flex items-center justify-center gap-2 w-full bg-primary-light text-white border border-accent/30 py-2.5 rounded-lg font-medium text-sm"
-                >
-                  <Database className="w-4 h-4 text-accent" />
-                  <span>Painel de Leads ({unreadCount} pendentes)</span>
-                </button>
                 <a
                   href="#contato"
                   onClick={() => setIsMobileMenuOpen(false)}

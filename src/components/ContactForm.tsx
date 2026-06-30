@@ -90,14 +90,45 @@ export default function ContactForm({ prefilledService, prefilledNotes, onSubmit
     return Object.keys(tempErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setIsSubmitting(true);
 
-    // Simulate database write
-    setTimeout(() => {
+    try {
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+      
+      if (accessKey) {
+        const formDataObj = new FormData();
+        formDataObj.append('access_key', accessKey);
+        formDataObj.append('subject', 'Novo Lead do Site - Heraldo Contabilidade');
+        formDataObj.append('from_name', formData.name);
+        formDataObj.append('replyto', formData.email);
+        
+        // Form fields
+        formDataObj.append('Nome', formData.name);
+        formDataObj.append('E-mail', formData.email);
+        formDataObj.append('Telefone', formData.phone);
+        formDataObj.append('Empresa', formData.companyName);
+        formDataObj.append('Serviço Desejado', formData.serviceType);
+        formDataObj.append('Faturamento', formData.revenueRange);
+        formDataObj.append('Mensagem', formData.message);
+
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formDataObj,
+        });
+
+        if (!response.ok) {
+          throw new Error('Falha na comunicação com o servidor');
+        }
+      } else {
+        console.warn('VITE_WEB3FORMS_ACCESS_KEY não configurada. Simulando submissão.');
+        // Small delay to simulate network request when testing locally
+        await new Promise(resolve => setTimeout(resolve, 800));
+      }
+
       const newSubmission: ContactSubmission = {
         id: Math.random().toString(36).substring(2, 9),
         name: formData.name,
@@ -112,9 +143,13 @@ export default function ContactForm({ prefilledService, prefilledNotes, onSubmit
       };
 
       onSubmit(newSubmission);
-      setIsSubmitting(false);
       setIsSuccess(true);
-    }, 1200);
+    } catch (error) {
+      console.error('Erro ao enviar formulário:', error);
+      alert('Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {

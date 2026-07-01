@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import BlogPage from './pages/BlogPage';
+import AdminBlogPage from './pages/AdminBlogPage';
 import TermsPage from './pages/TermsPage';
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/admin/blog" element={<AdminBlogPage />} />
           <Route path="/termos-de-uso" element={<TermsPage />} />
         </Routes>
 

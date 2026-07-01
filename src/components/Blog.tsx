@@ -52,7 +52,11 @@ const DEFAULT_POSTS: BlogPost[] = [
   }
 ];
 
-export default function Blog() {
+interface BlogProps {
+  isAdmin?: boolean;
+}
+
+export default function Blog({ isAdmin = false }: BlogProps = {}) {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<'todos' | 'impostos' | 'financas' | 'legislacao' | 'geral'>('todos');
@@ -243,24 +247,26 @@ export default function Blog() {
               />
             </div>
 
-            <button
-              id="toggle-blog-composer-button"
-              onClick={() => {
-                setIsFormOpen(!isFormOpen);
-                setFormSuccess(false);
-              }}
-              className="flex items-center gap-2 bg-primary hover:bg-primary-light text-white font-bold py-2 px-4 rounded-xl text-xs transition-all cursor-pointer hover:shadow-md w-full sm:w-auto justify-center whitespace-nowrap"
-            >
-              <PenTool className="w-3.5 h-3.5" />
-              <span>{isFormOpen ? 'Fechar Editor' : 'Escrever Artigo'}</span>
-            </button>
+            {isAdmin && (
+              <button
+                id="toggle-blog-composer-button"
+                onClick={() => {
+                  setIsFormOpen(!isFormOpen);
+                  setFormSuccess(false);
+                }}
+                className="flex items-center gap-2 bg-primary hover:bg-primary-light text-white font-bold py-2 px-4 rounded-xl text-xs transition-all cursor-pointer hover:shadow-md w-full sm:w-auto justify-center whitespace-nowrap"
+              >
+                <PenTool className="w-3.5 h-3.5" />
+                <span>{isFormOpen ? 'Fechar Editor' : 'Escrever Artigo'}</span>
+              </button>
+            )}
           </div>
 
         </div>
 
         {/* Interactive Expandable Writer Panel (CMS Composer) */}
         <AnimatePresence>
-          {isFormOpen && (
+          {isAdmin && isFormOpen && (
             <motion.div
               id="blog-composer-panel"
               initial={{ height: 0, opacity: 0 }}
@@ -724,7 +730,7 @@ export default function Blog() {
                     
                     <div className="flex items-center gap-2">
                       {/* Delete button (only for user-created posts to keep the interface tidy) */}
-                      {post.id.startsWith('custom-') && (
+                      {isAdmin && post.id.startsWith('custom-') && (
                         <button
                           type="button"
                           onClick={(e) => handleDeletePost(post.id, e)}
@@ -770,7 +776,7 @@ export default function Blog() {
       {/* Immersive Article Viewer Modal */}
       <AnimatePresence>
         {selectedPost && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4">
             {/* Backdrop */}
             <motion.div
               id="article-modal-backdrop"
@@ -787,45 +793,50 @@ export default function Blog() {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-3xl bg-white border border-primary/10 rounded-2xl shadow-2xl p-0 max-h-[90vh] overflow-hidden text-primary z-10 flex flex-col"
+              className="relative w-full h-full sm:max-w-7xl sm:max-h-[95vh] bg-white border border-primary/10 sm:rounded-2xl shadow-2xl p-0 overflow-hidden text-primary z-10 flex flex-col"
             >
-              {/* Image banner */}
-              <div className="relative h-56 sm:h-64 bg-primary flex-shrink-0">
-                <img
-                  src={selectedPost.image || 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=800&q=80'}
-                  alt={selectedPost.title}
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover opacity-80"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/20 to-transparent" />
-                
-                {/* Close Button top-right */}
-                <button
-                  id="close-article-modal-top"
-                  type="button"
-                  onClick={() => setSelectedPost(null)}
-                  className="absolute top-4 right-4 bg-black/45 text-white hover:bg-black/75 transition-all p-2 rounded-full font-mono text-xs cursor-pointer"
-                  aria-label="Fechar artigo"
+              {/* Close Button top-right (Fixed in modal) */}
+              <button
+                id="close-article-modal-top"
+                type="button"
+                onClick={() => setSelectedPost(null)}
+                className="absolute top-4 right-4 z-20 bg-black/45 text-white hover:bg-black/75 transition-all p-2 rounded-full font-mono text-xs cursor-pointer"
+                aria-label="Fechar artigo"
+              >
+                ✕
+              </button>
+
+              {/* Scrollable Container */}
+              <div className="overflow-y-auto w-full h-full flex flex-col">
+                {/* Image banner */}
+                <div 
+                  className="relative h-48 sm:h-64 md:h-[280px] bg-primary flex-shrink-0"
                 >
-                  ✕
-                </button>
+                  <img
+                    src={selectedPost.image || 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=800&q=80'}
+                    alt={selectedPost.title}
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover opacity-80"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-                <div className="absolute bottom-5 left-6 right-6">
-                  <span className="bg-accent text-primary font-bold text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-md mb-2 inline-block">
-                    {selectedPost.category === 'impostos' && 'Impostos'}
-                    {selectedPost.category === 'financas' && 'Finanças'}
-                    {selectedPost.category === 'legislacao' && 'Legislação'}
-                    {selectedPost.category === 'geral' && 'Geral'}
-                  </span>
-                  <h3 className="text-xl sm:text-2xl font-serif font-bold text-white leading-tight">
-                    {selectedPost.title}
-                  </h3>
+                  <div className="absolute bottom-6 left-6 right-6 sm:bottom-10 sm:left-10 sm:right-10 max-w-4xl mx-auto">
+                    <span className="bg-accent text-primary font-bold text-[10px] sm:text-xs uppercase tracking-wider px-3 py-1 rounded-md mb-3 inline-block">
+                      {selectedPost.category === 'impostos' && 'Impostos'}
+                      {selectedPost.category === 'financas' && 'Finanças'}
+                      {selectedPost.category === 'legislacao' && 'Legislação'}
+                      {selectedPost.category === 'geral' && 'Geral'}
+                    </span>
+                    <h3 className="text-2xl sm:text-4xl md:text-5xl font-serif font-bold text-white leading-tight">
+                      {selectedPost.title}
+                    </h3>
+                  </div>
                 </div>
-              </div>
 
-              {/* Scrollable body content */}
-              <div className="overflow-y-auto p-6 sm:p-8 space-y-6 max-h-[calc(90vh-16rem)]">
-                {/* Meta details */}
+                {/* Body content */}
+                <div className="p-6 sm:p-10 md:p-12 space-y-8 flex-grow">
+                  <div className="max-w-4xl mx-auto">
+                  {/* Meta details */}
                 <div className="flex flex-wrap items-center gap-4 text-xs text-primary-light/60 pb-4 border-b border-primary/5">
                   <span className="flex items-center gap-1">
                     <User className="w-4 h-4 text-accent-dark" />
@@ -867,7 +878,9 @@ export default function Blog() {
                     Falar no WhatsApp
                   </a>
                 </div>
+                </div>
               </div>
+              </div> {/* Close scrollable container */}
 
               {/* Close footer button */}
               <div className="bg-bg-light p-4 flex justify-end border-t border-primary/5 flex-shrink-0">

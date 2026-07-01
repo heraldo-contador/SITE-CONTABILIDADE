@@ -15,10 +15,10 @@ export default function Header() {
   }, []);
 
   const menuItems = [
-    { label: 'Serviços', href: '#servicos' },
-    { label: 'Simuladores', href: '#simuladores' },
-    { label: 'Blog', href: '#blog' },
-    { label: 'Contato', href: '#contato' },
+    { label: 'Serviços', href: '/#servicos' },
+    { label: 'Simuladores', href: '/#simuladores' },
+    { label: 'Blog', href: '/blog' },
+    { label: 'Contato', href: '/#contato' },
   ];
 
   return (
@@ -56,7 +56,7 @@ export default function Header() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group">
+          <a href="/" className="flex items-center gap-2 group">
             <div className="bg-accent p-2 rounded-lg transition-transform group-hover:scale-105">
               <Landmark className="w-6 h-6 text-primary" />
             </div>
@@ -87,7 +87,7 @@ export default function Header() {
           {/* Actions */}
           <div className="hidden md:flex items-center gap-4">
             <a
-              href="#contato"
+              href="/#contato"
               className="bg-accent hover:bg-accent-dark text-primary font-sans font-semibold text-sm py-2 px-5 rounded-lg transition-all shadow-md hover:shadow-accent/25 duration-200"
             >
               Fale Conosco
@@ -129,7 +129,7 @@ export default function Header() {
               ))}
               <div className="pt-4 flex flex-col gap-3">
                 <a
-                  href="#contato"
+                  href="/#contato"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="block w-full text-center bg-accent text-primary py-2.5 rounded-lg font-bold text-sm shadow-md"
                 >

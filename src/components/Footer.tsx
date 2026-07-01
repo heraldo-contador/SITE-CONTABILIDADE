@@ -1,11 +1,8 @@
 import React from 'react';
 import { Landmark, Mail, Phone, MapPin, ExternalLink, Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-interface FooterProps {
-  onTermsClick?: () => void;
-}
-
-export default function Footer({ onTermsClick }: FooterProps) {
+export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -39,16 +36,16 @@ export default function Footer({ onTermsClick }: FooterProps) {
             </h4>
             <ul className="space-y-2.5 text-xs sm:text-sm text-bg-light/80">
               <li>
-                <a href="#servicos" className="hover:text-accent transition-colors">Serviços Contábeis</a>
+                <a href="/#servicos" className="hover:text-accent transition-colors">Serviços Contábeis</a>
               </li>
               <li>
-                <a href="#simuladores" className="hover:text-accent transition-colors">Simuladores de Tributos</a>
+                <a href="/#simuladores" className="hover:text-accent transition-colors">Simuladores de Tributos</a>
               </li>
               <li>
-                <a href="#blog" className="hover:text-accent transition-colors">Blog & Conteúdo</a>
+                <Link to="/blog" className="hover:text-accent transition-colors">Blog & Conteúdo</Link>
               </li>
               <li>
-                <a href="#contato" className="hover:text-accent transition-colors">Solicitar Reunião</a>
+                <a href="/#contato" className="hover:text-accent transition-colors">Solicitar Reunião</a>
               </li>
             </ul>
           </div>
@@ -100,18 +97,12 @@ export default function Footer({ onTermsClick }: FooterProps) {
             © {currentYear} Heraldo Contabilidade S/S. Todos os direitos reservados.
           </span>
           <div className="flex gap-4">
-            <a 
-              href="#" 
-              onClick={(e) => {
-                if (onTermsClick) {
-                  e.preventDefault();
-                  onTermsClick();
-                }
-              }}
+            <Link 
+              to="/termos-de-uso" 
               className="hover:underline hover:text-white"
             >
               Termos de Uso
-            </a>
+            </Link>
             <span>•</span>
             <a href="#" className="hover:underline hover:text-white">Políticas de Privacidade</a>
           </div>

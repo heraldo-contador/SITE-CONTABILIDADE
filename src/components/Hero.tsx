@@ -4,8 +4,8 @@ import { motion } from 'motion/react';
 
 export default function Hero() {
   const stats = [
-    { value: '8+', label: 'Anos de Experiência' },
-    { value: '98%', label: 'Retenção de Clientes' },
+    { value: '8+', label: 'Anos de Experiência com Contabilidade Digital' },
+    { value: '98%', label: 'Satisfação dos Clientes' },
     { value: '500+', label: 'Empresas Atendidas' },
     { value: 'R$ 15M+', label: 'Impostos Economizados' },
   ];

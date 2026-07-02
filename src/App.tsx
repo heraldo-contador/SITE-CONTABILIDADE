@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import BlogPage from './pages/BlogPage';
 import AdminBlogPage from './pages/AdminBlogPage';
 import TermsPage from './pages/TermsPage';
+import PrivacyPage from './pages/PrivacyPage';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/admin/blog" element={<AdminBlogPage />} />
           <Route path="/termos-de-uso" element={<TermsPage />} />
+          <Route path="/politica-de-privacidade" element={<PrivacyPage />} />
         </Routes>
 
         {/* Footer Section with CFC standard details */}

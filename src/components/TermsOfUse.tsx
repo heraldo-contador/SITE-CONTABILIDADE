@@ -22,48 +22,86 @@ export default function TermsOfUse({ onBack }: TermsOfUseProps) {
           <h1 className="text-3xl font-serif text-primary mb-8 font-medium">Termos de Uso</h1>
           
           <div className="prose prose-lg text-secondary space-y-6">
+            <p><strong>Última atualização:</strong> 02 de julho de 2026</p>
             <p>
-              Estes Termos de Uso regem a utilização do site e dos serviços oferecidos pelo nosso escritório de contabilidade. Ao acessar este site, você concorda em cumprir estes termos de serviço, todas as leis e regulamentos aplicáveis.
+              Bem-vindo ao site da Heraldo Contabilidade. Ao acessar e utilizar este site, você concorda com os presentes Termos de Uso. Caso não concorde com qualquer uma das condições aqui estabelecidas, recomendamos que não utilize este site.
             </p>
 
-            <h2 className="text-xl font-medium text-primary mt-8 mb-4">1. Uso de Licença</h2>
+            <h2 className="text-xl font-medium text-primary mt-8 mb-4">1. Objetivo</h2>
             <p>
-              É concedida permissão para baixar temporariamente uma cópia dos materiais (informações ou software) em nosso site, apenas para visualização transitória pessoal e não comercial. Esta é a concessão de uma licença, não uma transferência de título e, sob esta licença, você não pode:
+              O site da Heraldo Contabilidade tem como finalidade disponibilizar informações sobre serviços contábeis, fiscais, trabalhistas, societários e financeiros, bem como facilitar o contato entre clientes e a empresa.
             </p>
+
+            <h2 className="text-xl font-medium text-primary mt-8 mb-4">2. Utilização do Site</h2>
+            <p>
+              O usuário compromete-se a utilizar este site de forma ética, responsável e em conformidade com a legislação brasileira vigente.
+            </p>
+            <p>É proibido:</p>
             <ul className="list-disc pl-6 space-y-2">
-              <li>Modificar ou copiar os materiais;</li>
-              <li>Usar os materiais para qualquer finalidade comercial ou para exibição pública;</li>
-              <li>Tentar descompilar ou fazer engenharia reversa de qualquer software contido no site;</li>
-              <li>Remover quaisquer direitos autorais ou outras notações de propriedade dos materiais; ou</li>
-              <li>Transferir os materiais para outra pessoa ou 'espelhar' os materiais em qualquer outro servidor.</li>
+              <li>Utilizar o site para fins ilícitos;</li>
+              <li>Tentar acessar áreas restritas sem autorização;</li>
+              <li>Inserir códigos maliciosos, vírus ou qualquer conteúdo que comprometa a segurança do sistema;</li>
+              <li>Utilizar as informações do site de forma que possa causar prejuízo à Heraldo Contabilidade ou a terceiros.</li>
             </ul>
 
-            <h2 className="text-xl font-medium text-primary mt-8 mb-4">2. Isenção de Responsabilidade</h2>
+            <h2 className="text-xl font-medium text-primary mt-8 mb-4">3. Propriedade Intelectual</h2>
             <p>
-              Os materiais no site são fornecidos 'como estão'. Não oferecemos garantias, expressas ou implícitas, e, por este meio, isentamo-nos e negamos todas as outras garantias, incluindo, sem limitação, garantias implícitas ou condições de comercialização, adequação a um fim específico ou não violação de propriedade intelectual ou outra violação de direitos.
+              Todo o conteúdo disponibilizado neste site, incluindo textos, imagens, logotipos, identidade visual, documentos, gráficos e demais materiais, é protegido pelas leis de propriedade intelectual e pertence à Heraldo Contabilidade ou aos seus respectivos titulares.
             </p>
             <p>
-              Além disso, não garantimos ou fazemos qualquer representação relativa à precisão, aos resultados prováveis ou à confiabilidade do uso dos materiais em nosso site ou de outra forma relacionado a esses materiais ou em sites vinculados a este site.
-            </p>
-
-            <h2 className="text-xl font-medium text-primary mt-8 mb-4">3. Limitações</h2>
-            <p>
-              Em nenhum caso nós ou nossos fornecedores seremos responsáveis por quaisquer danos (incluindo, sem limitação, danos por perda de dados ou lucro ou devido a interrupção dos negócios) decorrentes do uso ou da incapacidade de usar os materiais em nosso site, mesmo que tenhamos sido notificados oralmente ou por escrito da possibilidade de tais danos.
+              É proibida a reprodução, distribuição ou utilização do conteúdo sem autorização prévia e por escrito.
             </p>
 
-            <h2 className="text-xl font-medium text-primary mt-8 mb-4">4. Precisão dos Materiais</h2>
+            <h2 className="text-xl font-medium text-primary mt-8 mb-4">4. Informações Disponibilizadas</h2>
             <p>
-              Os materiais exibidos no site podem incluir erros técnicos, tipográficos ou fotográficos. Não garantimos que qualquer material no site seja preciso, completo ou atual. Podemos fazer alterações nos materiais contidos no site a qualquer momento, sem aviso prévio. No entanto, não nos comprometemos a atualizar os materiais.
+              As informações publicadas neste site possuem caráter informativo e não substituem a análise técnica individualizada de cada caso.
+            </p>
+            <p>
+              A contratação de serviços contábeis depende de avaliação específica e da formalização contratual entre as partes.
             </p>
 
-            <h2 className="text-xl font-medium text-primary mt-8 mb-4">5. Links</h2>
+            <h2 className="text-xl font-medium text-primary mt-8 mb-4">5. Responsabilidades</h2>
             <p>
-              Não analisamos todos os sites vinculados ao nosso site e não somos responsáveis pelo conteúdo de nenhum site vinculado. A inclusão de qualquer link não implica endosso por nossa parte. O uso de qualquer site vinculado é por conta e risco do usuário.
+              A Heraldo Contabilidade busca manter as informações atualizadas e corretas, porém não garante que o conteúdo esteja sempre livre de erros ou desatualizações.
+            </p>
+            <p>
+              O usuário é responsável pelas informações fornecidas por meio dos formulários de contato e declara que os dados enviados são verdadeiros.
             </p>
 
-            <h2 className="text-xl font-medium text-primary mt-8 mb-4">6. Modificações</h2>
+            <h2 className="text-xl font-medium text-primary mt-8 mb-4">6. Privacidade e Proteção de Dados</h2>
             <p>
-              Podemos revisar estes termos de serviço do site a qualquer momento, sem aviso prévio. Ao usar este site, você concorda em ficar vinculado à versão atual desses termos de serviço.
+              O tratamento dos dados pessoais segue os princípios da Lei Geral de Proteção de Dados (Lei nº 13.709/2018 – LGPD).
+            </p>
+            <p>
+              Para conhecer como seus dados são tratados, consulte nossa Política de Privacidade.
+            </p>
+
+            <h2 className="text-xl font-medium text-primary mt-8 mb-4">7. Links para Terceiros</h2>
+            <p>
+              Este site poderá conter links para sites de terceiros. A Heraldo Contabilidade não se responsabiliza pelo conteúdo, políticas de privacidade ou práticas adotadas por esses sites.
+            </p>
+
+            <h2 className="text-xl font-medium text-primary mt-8 mb-4">8. Disponibilidade</h2>
+            <p>
+              Embora sejam adotadas medidas para manter o site em funcionamento, a Heraldo Contabilidade não garante disponibilidade contínua, podendo ocorrer interrupções para manutenção, atualização ou por fatores externos.
+            </p>
+
+            <h2 className="text-xl font-medium text-primary mt-8 mb-4">9. Alterações dos Termos</h2>
+            <p>
+              A Heraldo Contabilidade poderá alterar estes Termos de Uso a qualquer momento, sem aviso prévio. A versão mais recente estará sempre disponível nesta página.
+            </p>
+
+            <h2 className="text-xl font-medium text-primary mt-8 mb-4">10. Legislação Aplicável</h2>
+            <p>
+              Estes Termos de Uso são regidos pelas leis da República Federativa do Brasil.
+            </p>
+            <p>
+              Fica eleito o foro da comarca da sede da Heraldo Contabilidade para dirimir quaisquer controvérsias oriundas da utilização deste site, ressalvadas as hipóteses previstas em lei.
+            </p>
+
+            <h2 className="text-xl font-medium text-primary mt-8 mb-4">11. Contato</h2>
+            <p>
+              Em caso de dúvidas sobre estes Termos de Uso, entre em contato pelos canais oficiais disponibilizados no site da Heraldo Contabilidade.
             </p>
           </div>
         </div>

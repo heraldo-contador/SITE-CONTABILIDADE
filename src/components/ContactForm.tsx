@@ -16,10 +16,12 @@ export default function ContactForm({ prefilledService, prefilledNotes, onSubmit
     email: '',
     phone: '',
     companyName: '',
+    cnpj: '',
     serviceType: '',
     revenueRange: '',
     message: '',
   });
+  const [privacyAccepted, setPrivacyAccepted] = useState(false);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -57,6 +59,23 @@ export default function ContactForm({ prefilledService, prefilledNotes, onSubmit
     if (errors.phone) setErrors((prev) => { const n = { ...prev }; delete n.phone; return n; });
   };
 
+  const handleCnpjChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 14) value = value.slice(0, 14);
+
+    if (value.length > 12) {
+      value = `${value.slice(0, 2)}.${value.slice(2, 5)}.${value.slice(5, 8)}/${value.slice(8, 12)}-${value.slice(12)}`;
+    } else if (value.length > 8) {
+      value = `${value.slice(0, 2)}.${value.slice(2, 5)}.${value.slice(5, 8)}/${value.slice(8)}`;
+    } else if (value.length > 5) {
+      value = `${value.slice(0, 2)}.${value.slice(2, 5)}.${value.slice(5)}`;
+    } else if (value.length > 2) {
+      value = `${value.slice(0, 2)}.${value.slice(2)}`;
+    }
+
+    setFormData((prev) => ({ ...prev, cnpj: value }));
+  };
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -82,9 +101,9 @@ export default function ContactForm({ prefilledService, prefilledNotes, onSubmit
     } else if (formData.phone.replace(/\D/g, '').length < 10) {
       tempErrors.phone = 'Insira um telefone válido com DDD.';
     }
-    if (!formData.companyName.trim()) tempErrors.companyName = 'Nome da empresa é necessário.';
     if (!formData.serviceType) tempErrors.serviceType = 'Selecione a área de maior interesse.';
     if (!formData.revenueRange) tempErrors.revenueRange = 'Selecione a faixa de faturamento.';
+    if (!privacyAccepted) tempErrors.privacyAccepted = 'Você deve aceitar a Política de Privacidade para enviar.';
 
     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
@@ -110,7 +129,8 @@ export default function ContactForm({ prefilledService, prefilledNotes, onSubmit
         formDataObj.append('Nome', formData.name);
         formDataObj.append('E-mail', formData.email);
         formDataObj.append('Telefone', formData.phone);
-        formDataObj.append('Empresa', formData.companyName);
+        formDataObj.append('Empresa', formData.companyName || 'Não informada');
+        formDataObj.append('CNPJ', formData.cnpj || 'Não informado');
         formDataObj.append('Serviço Desejado', formData.serviceType);
         formDataObj.append('Faturamento', formData.revenueRange);
         formDataObj.append('Mensagem', formData.message);
@@ -134,7 +154,7 @@ export default function ContactForm({ prefilledService, prefilledNotes, onSubmit
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
-        companyName: formData.companyName,
+        companyName: formData.companyName || 'Não informada',
         serviceType: formData.serviceType,
         revenueRange: formData.revenueRange,
         message: formData.message,
@@ -158,10 +178,12 @@ export default function ContactForm({ prefilledService, prefilledNotes, onSubmit
       email: '',
       phone: '',
       companyName: '',
+      cnpj: '',
       serviceType: '',
       revenueRange: '',
       message: '',
     });
+    setPrivacyAccepted(false);
     setIsSuccess(false);
   };
 
@@ -318,10 +340,27 @@ export default function ContactForm({ prefilledService, prefilledNotes, onSubmit
                         )}
                       </div>
 
+                      {/* CNPJ */}
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-primary-light/80 mb-2">
+                          CNPJ (Opcional)
+                        </label>
+                        <input
+                          type="text"
+                          name="cnpj"
+                          value={formData.cnpj}
+                          onChange={handleCnpjChange}
+                          placeholder="00.000.000/0000-00"
+                          className="w-full bg-white border border-primary/10 focus:border-accent focus:ring-1 focus:ring-accent rounded-xl py-3 px-4 text-sm text-primary outline-none transition-all"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid sm:grid-cols-1 gap-5">
                       {/* Company Name */}
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-primary-light/80 mb-2">
-                          Razão Social ou Nome Fantasia *
+                          Razão Social ou Nome Fantasia (Opcional)
                         </label>
                         <input
                           type="text"
@@ -422,6 +461,42 @@ export default function ContactForm({ prefilledService, prefilledNotes, onSubmit
                       ></textarea>
                     </div>
 
+                    {/* Privacy Policy Checkbox */}
+                    <div className="flex items-start gap-3">
+                      <div className="flex items-center h-5">
+                        <input
+                          id="privacyPolicy"
+                          name="privacyPolicy"
+                          type="checkbox"
+                          checked={privacyAccepted}
+                          onChange={(e) => {
+                            setPrivacyAccepted(e.target.checked);
+                            if (errors.privacyAccepted) {
+                              setErrors(prev => {
+                                const n = { ...prev };
+                                delete n.privacyAccepted;
+                                return n;
+                              });
+                            }
+                          }}
+                          className={`w-4 h-4 text-accent bg-white border ${
+                            errors.privacyAccepted ? 'border-red-500' : 'border-primary/20'
+                          } rounded focus:ring-accent`}
+                        />
+                      </div>
+                      <div className="text-xs">
+                        <label htmlFor="privacyPolicy" className="text-primary-light/80">
+                          Ao enviar este formulário, declaro que li e concordo com a <a href="/politica-de-privacidade" className="text-accent hover:underline font-medium" target="_blank" rel="noreferrer">Política de Privacidade</a>.
+                        </label>
+                        {errors.privacyAccepted && (
+                          <span className="text-[11px] text-red-500 flex items-center gap-1 mt-1 font-medium">
+                            <AlertCircle className="w-3.5 h-3.5" />
+                            {errors.privacyAccepted}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
                     {/* Premium Lead Quick Assist Trigger */}
                     {isPremiumLead && (
                       <motion.div
@@ -502,7 +577,7 @@ export default function ContactForm({ prefilledService, prefilledNotes, onSubmit
                         Enviar Nova Mensagem
                       </button>
                       <a
-                        href="https://wa.me/5511987654321"
+                        href="https://api.whatsapp.com/send/?phone=5591993608142&text&type=phone_number&app_absent=0"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow"

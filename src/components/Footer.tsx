@@ -100,11 +100,18 @@ export default function Footer() {
             <Link 
               to="/termos-de-uso" 
               className="hover:underline hover:text-white"
+              onClick={() => window.scrollTo(0, 0)}
             >
               Termos de Uso
             </Link>
             <span>•</span>
-            <a href="#" className="hover:underline hover:text-white">Políticas de Privacidade</a>
+            <Link 
+              to="/politica-de-privacidade" 
+              className="hover:underline hover:text-white"
+              onClick={() => window.scrollTo(0, 0)}
+            >
+              Políticas de Privacidade
+            </Link>
           </div>
         </div>
 

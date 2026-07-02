@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, PenTool, BookOpen, User, Calendar, Clock, ArrowRight, Filter, Sparkles, Plus, Trash2, Upload, Image, Link, Bold, Italic, List, ListOrdered, Quote, Code, Minus, Type } from 'lucide-react';
+import { Search, PenTool, BookOpen, User, Calendar, Clock, ArrowRight, Filter, Sparkles, Plus, Trash2, Upload, Image, Link, Bold, Italic, List, ListOrdered, Quote, Code, Minus, Type, MessageCircle } from 'lucide-react';
 import { BlogPost } from '../types';
 
 // Preset images for blog posts
@@ -764,10 +764,13 @@ export default function Blog({ isAdmin = false }: BlogProps = {}) {
           </div>
           <a
             id="blog-footer-cta"
-            href="#contato"
-            className="bg-accent hover:bg-accent-dark text-primary font-bold py-3 px-6 rounded-xl transition-all text-xs hover:shadow-md cursor-pointer whitespace-nowrap"
+            href="https://api.whatsapp.com/send/?phone=5591993608142&text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20diagn%C3%B3stico%20gratuito%20da%20minha%20empresa.&type=phone_number&app_absent=0"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-xl transition-all text-xs hover:shadow-md cursor-pointer whitespace-nowrap flex items-center justify-center gap-2"
           >
-            Fazer Diagnóstico Gratuito
+            <MessageCircle className="w-4 h-4" />
+            Falar no WhatsApp
           </a>
         </div>
 

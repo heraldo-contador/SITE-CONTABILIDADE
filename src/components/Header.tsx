@@ -18,6 +18,7 @@ export default function Header() {
     { label: 'Serviços', href: '/#servicos' },
     { label: 'Simuladores', href: '/#simuladores' },
     { label: 'Blog', href: '/blog' },
+    { label: 'Reforma Tributária', href: '/reforma-tributaria' },
     { label: 'Contato', href: '/#contato' },
   ];
 

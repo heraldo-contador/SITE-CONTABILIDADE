@@ -7,6 +7,8 @@ import BlogPage from './pages/BlogPage';
 import AdminBlogPage from './pages/AdminBlogPage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
+import ReformaTributariaPage from './pages/ReformaTributariaPage';
+import { ChatBot } from './components/ChatBot';
 
 export default function App() {
   return (
@@ -22,10 +24,12 @@ export default function App() {
           <Route path="/admin/blog" element={<AdminBlogPage />} />
           <Route path="/termos-de-uso" element={<TermsPage />} />
           <Route path="/politica-de-privacidade" element={<PrivacyPage />} />
+          <Route path="/reforma-tributaria" element={<ReformaTributariaPage />} />
         </Routes>
 
         {/* Footer Section with CFC standard details */}
         <Footer />
+        <ChatBot />
       </div>
     </BrowserRouter>
   );

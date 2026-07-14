@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Landmark, Mail, Phone, Menu, X, Clock } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -6,6 +7,7 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,6 +16,12 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+    setOpenDropdown(null);
+  }, [location.pathname]);
 
   const menuItems = [
     { label: 'Serviços', href: '/#servicos' },
@@ -66,7 +74,7 @@ export default function Header() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2 group">
+          <Link to="/" className="flex items-center gap-2 group">
             <div className="bg-accent p-2 rounded-lg transition-transform group-hover:scale-105">
               <Landmark className="w-6 h-6 text-primary" />
             </div>
@@ -78,7 +86,7 @@ export default function Header() {
                 Assessoria & Gestão Contábil
               </span>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8 font-sans">
@@ -97,28 +105,49 @@ export default function Header() {
                         transition={{ duration: 0.2 }}
                         className="absolute top-full left-0 mt-1 w-56 bg-white rounded-xl shadow-xl overflow-hidden border border-gray-100 py-2 z-50"
                       >
-                        {item.items?.map((subItem) => (
-                          <a
-                            key={subItem.label}
-                            href={subItem.href}
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-accent/10 hover:text-primary transition-colors"
-                          >
-                            {subItem.label}
-                          </a>
-                        ))}
+                          {item.items?.map((subItem) => (
+                            subItem.href.startsWith('/#') ? (
+                              <a
+                                key={subItem.label}
+                                href={subItem.href}
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-accent/10 hover:text-primary transition-colors"
+                              >
+                                {subItem.label}
+                              </a>
+                            ) : (
+                              <Link
+                                key={subItem.label}
+                                to={subItem.href}
+                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-accent/10 hover:text-primary transition-colors"
+                              >
+                                {subItem.label}
+                              </Link>
+                            )
+                          ))}
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
               ) : (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="text-bg-light/90 hover:text-accent font-medium text-sm transition-colors relative group py-2"
-                >
-                  {item.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
-                </a>
+                item.href.startsWith('/#') ? (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="text-bg-light/90 hover:text-accent font-medium text-sm transition-colors relative group py-2"
+                  >
+                    {item.label}
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+                  </a>
+                ) : (
+                  <Link
+                    key={item.label}
+                    to={item.href}
+                    className="text-bg-light/90 hover:text-accent font-medium text-sm transition-colors relative group py-2"
+                  >
+                    {item.label}
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+                  </Link>
+                )
               )
             ))}
           </nav>
@@ -175,28 +204,46 @@ export default function Header() {
                           className="flex flex-col gap-2 mt-3 pl-4 overflow-hidden"
                         >
                           {item.items?.map((subItem) => (
-                            <a
-                              key={subItem.label}
-                              href={subItem.href}
-                              onClick={() => setIsMobileMenuOpen(false)}
-                              className="text-bg-light/70 hover:text-accent text-sm py-1 transition-colors"
-                            >
-                              {subItem.label}
-                            </a>
+                            subItem.href.startsWith('/#') ? (
+                              <a
+                                key={subItem.label}
+                                href={subItem.href}
+                                className="text-bg-light/70 hover:text-accent text-sm py-1 transition-colors block"
+                              >
+                                {subItem.label}
+                              </a>
+                            ) : (
+                              <Link
+                                key={subItem.label}
+                                to={subItem.href}
+                                className="text-bg-light/70 hover:text-accent text-sm py-1 transition-colors block"
+                              >
+                                {subItem.label}
+                              </Link>
+                            )
                           ))}
                         </motion.div>
                       )}
                     </AnimatePresence>
                   </div>
                 ) : (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-bg-light/95 hover:text-accent py-2 text-base font-medium border-b border-white/5 transition-colors"
-                  >
-                    {item.label}
-                  </a>
+                  item.href.startsWith('/#') ? (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className="text-bg-light/95 hover:text-accent py-2 text-base font-medium border-b border-white/5 transition-colors block"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      key={item.label}
+                      to={item.href}
+                      className="text-bg-light/95 hover:text-accent py-2 text-base font-medium border-b border-white/5 transition-colors block"
+                    >
+                      {item.label}
+                    </Link>
+                  )
                 )
               ))}
               <div className="pt-4 flex flex-col gap-3">

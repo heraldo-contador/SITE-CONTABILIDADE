@@ -9,6 +9,7 @@ import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
 import ReformaTributariaPage from './pages/ReformaTributariaPage';
 import ProdutoresConteudoPage from './pages/ProdutoresConteudoPage';
+import ComercioPage from './pages/ComercioPage';
 import { WhatsAppButton } from './components/WhatsAppButton';
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/politica-de-privacidade" element={<PrivacyPage />} />
           <Route path="/reforma-tributaria" element={<ReformaTributariaPage />} />
           <Route path="/segmentos/produtores-de-conteudo" element={<ProdutoresConteudoPage />} />
+          <Route path="/segmentos/comercio" element={<ComercioPage />} />
         </Routes>
 
         {/* Footer Section with CFC standard details */}

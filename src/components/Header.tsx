@@ -22,7 +22,8 @@ export default function Header() {
       label: 'Segmentos', 
       isDropdown: true,
       items: [
-        { label: 'Produtores de Conteúdo', href: '/segmentos/produtores-de-conteudo' }
+        { label: 'Produtores de Conteúdo', href: '/segmentos/produtores-de-conteudo' },
+        { label: 'Comércio', href: '/segmentos/comercio' }
       ]
     },
     { label: 'Blog', href: '/blog' },

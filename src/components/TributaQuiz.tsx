@@ -6,6 +6,7 @@ import { AchievementsGallery } from './tributaquiz/AchievementsGallery';
 import { questions } from './tributaquiz/data/questions';
 import { Difficulty, Question, AchievementId } from './tributaquiz/types';
 import { AnimatePresence } from 'motion/react';
+import { RotateCcw } from 'lucide-react';
 
 type GameState = 'start' | 'playing' | 'result' | 'achievements';
 
@@ -60,7 +61,18 @@ export default function TributaQuiz() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-emerald-500 via-teal-500 to-blue-600 rounded-3xl flex items-center justify-center p-4 sm:p-8 font-sans selection:bg-white/30 w-full min-h-[700px]">
+    <div className="bg-gradient-to-br from-emerald-500 via-teal-500 to-blue-600 rounded-3xl flex flex-col items-center justify-center p-4 sm:p-8 font-sans selection:bg-white/30 w-full min-h-[700px] relative">
+      
+      {gameState !== 'start' && (
+        <button 
+          onClick={handleRestart}
+          className="absolute top-6 left-6 text-white/90 hover:text-white flex items-center gap-2 font-medium bg-black/10 hover:bg-black/20 px-4 py-2 rounded-xl transition-colors backdrop-blur-sm z-20"
+        >
+          <RotateCcw size={18} />
+          Reiniciar Quiz
+        </button>
+      )}
+
       <div className="w-full max-w-4xl">
         <AnimatePresence mode="wait">
           {gameState === 'start' && <StartScreen key="start" onStart={startGame} onViewAchievements={() => setGameState('achievements')} />}

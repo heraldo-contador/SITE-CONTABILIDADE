@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'motion/react';
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,6 +18,13 @@ export default function Header() {
   const menuItems = [
     { label: 'Serviços', href: '/#servicos' },
     { label: 'Simuladores', href: '/#simuladores' },
+    { 
+      label: 'Segmentos', 
+      isDropdown: true,
+      items: [
+        { label: 'Produtores de Conteúdo', href: '/segmentos/produtores-de-conteudo' }
+      ]
+    },
     { label: 'Blog', href: '/blog' },
     { label: 'Reforma Tributária', href: '/reforma-tributaria' },
     { label: 'Contato', href: '/#contato' },
@@ -74,14 +82,43 @@ export default function Header() {
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8 font-sans">
             {menuItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="text-bg-light/90 hover:text-accent font-medium text-sm transition-colors relative group py-2"
-              >
-                {item.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
-              </a>
+              item.isDropdown ? (
+                <div key={item.label} className="relative group py-2" onMouseEnter={() => setOpenDropdown(item.label)} onMouseLeave={() => setOpenDropdown(null)}>
+                  <button className="text-bg-light/90 hover:text-accent font-medium text-sm transition-colors flex items-center gap-1 focus:outline-none">
+                    {item.label}
+                  </button>
+                  <AnimatePresence>
+                    {openDropdown === item.label && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute top-full left-0 mt-1 w-56 bg-white rounded-xl shadow-xl overflow-hidden border border-gray-100 py-2 z-50"
+                      >
+                        {item.items?.map((subItem) => (
+                          <a
+                            key={subItem.label}
+                            href={subItem.href}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-accent/10 hover:text-primary transition-colors"
+                          >
+                            {subItem.label}
+                          </a>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="text-bg-light/90 hover:text-accent font-medium text-sm transition-colors relative group py-2"
+                >
+                  {item.label}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+              )
             ))}
           </nav>
 
@@ -115,18 +152,51 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden fixed top-[108px] sm:top-[92px] left-0 right-0 z-30 bg-primary border-b border-accent/20 shadow-xl"
+            className="md:hidden fixed top-[108px] sm:top-[92px] left-0 right-0 z-30 bg-primary border-b border-accent/20 shadow-xl overflow-y-auto max-h-[calc(100vh-108px)]"
           >
             <div className="px-4 pt-4 pb-6 space-y-3 flex flex-col font-sans">
               {menuItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-bg-light/95 hover:text-accent py-2 text-base font-medium border-b border-white/5 transition-colors"
-                >
-                  {item.label}
-                </a>
+                item.isDropdown ? (
+                  <div key={item.label} className="border-b border-white/5 py-2">
+                    <button 
+                      onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label)}
+                      className="text-bg-light/95 hover:text-accent text-base font-medium transition-colors w-full text-left flex justify-between items-center"
+                    >
+                      {item.label}
+                      <span className="text-xl leading-none">{openDropdown === item.label ? '-' : '+'}</span>
+                    </button>
+                    <AnimatePresence>
+                      {openDropdown === item.label && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="flex flex-col gap-2 mt-3 pl-4 overflow-hidden"
+                        >
+                          {item.items?.map((subItem) => (
+                            <a
+                              key={subItem.label}
+                              href={subItem.href}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className="text-bg-light/70 hover:text-accent text-sm py-1 transition-colors"
+                            >
+                              {subItem.label}
+                            </a>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-bg-light/95 hover:text-accent py-2 text-base font-medium border-b border-white/5 transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                )
               ))}
               <div className="pt-4 flex flex-col gap-3">
                 <a
